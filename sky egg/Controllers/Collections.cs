@@ -190,7 +190,9 @@ namespace sky_egg.Controllers
                 }
                 return RedirectToAction("Read", new { Id = skyEggProduct.Id });
             }
-            return View();
+            if (action == Actions.Add) { return View(); }
+            
+            return RedirectToAction("Update", new { Id = model.Id });
         }
         #endregion
     }

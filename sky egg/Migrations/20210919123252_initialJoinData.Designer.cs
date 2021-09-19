@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sky_egg.Models;
 
 namespace sky_egg.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210919123252_initialJoinData")]
+    partial class initialJoinData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,7 +130,7 @@ namespace sky_egg.Migrations
                         new
                         {
                             Id = 2,
-                            Categrie = "Air_Purifiers",
+                            Categrie = "Humidifiers",
                             Features = "Much Powerful Performance - CADR 189m³/h + True HEPA Filter;Effective Air Filtration - Refresh the Air in a Small or Mid-Size Room(250 Sq Ft (23 m²) )in 20 Min",
                             Prise = 119.99f,
                             ProductName = "HEPA Air Purifier 4-in-1 for Home"
@@ -136,7 +138,7 @@ namespace sky_egg.Migrations
                         new
                         {
                             Id = 3,
-                            Categrie = "Humidifiers",
+                            Categrie = "Air_Purifiers",
                             Features = "EFFECTIVELY COMBAT DRYNESS;HOUGHTFUL TIMER FUNCTION",
                             Prise = 39.99f,
                             ProductName = "Dreamegg 2L Cool Mist Humidifier - Grey"
