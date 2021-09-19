@@ -1,0 +1,17 @@
+main .products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 50px auto; }
+  main .products-container .product-box {
+    margin-top: 10px;
+    width: 300px !important; }
+    main .products-container .product-box .card-body .links {
+      display: flex;
+      justify-content: space-evenly; }
+
+.links {
+  display: flex;
+  justify-content: space-evenly; }
+
+/*# sourceMappingURL=Products.css.map */

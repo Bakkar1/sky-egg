@@ -1,0 +1,64 @@
+﻿@model SkyEggCreateViewModel;
+@{
+    ViewBag.Title = "Add New Product";
+}
+<form enctype="multipart/form-data" asp-controller="collections" asp-action="AddProduct" method="post">
+    <div class="form-group">
+        <label asp-for="ProductName">Product Name</label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Prise">Prise</label>
+        <input asp-for="Prise" class="form-control"/>
+        <span asp-validation-for="Prise" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Features">Features</label>
+        <input asp-for="Features" class="form-control"/>
+        <span asp-validation-for="Features" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Colors">Colors</label>
+        <input asp-for="Colors" class="form-control"/>
+        <span asp-validation-for="Colors" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Categrie">Categrie</label>
+        <select class="form-control" asp-for="Categrie" asp-items="Html.GetEnumSelectList<Categories>()">
+            <option value="">Please Select</option>
+        </select>
+        <span asp-validation-for="Categrie" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Photos"></label>
+        <div>
+            <div class="custom-file">
+                <input multiple asp-for="Photos" class="form-control custom-file-input" />
+                <label class="custom-file-label">Choose File...</label>
+            </div>
+        </div>
+    </div>
+    @* ay error tra ghaydar lih display hna *@
+    @*<div asp-validation-summary="All" class="text-danger"></div>*@
+    <input type="submit" class="btn btn-primary" value="Create" />
+    @section Scripts{
+        <script>
+            //bach yban lik path dyal file f labale
+            window.addEventListener('load', function () {
+                let myInput = document.querySelector('.custom-file-input');
+                myInput.onchange = function () {
+                    //let fileName = this.value.split('\\').pop();
+                    //this.nextElementSibling.textContent = fileName;
+                    let selectedItems = this.files.length;
+                    if (selectedItems == 1) {
+                        this.nextElementSibling.textContent = this.value.split('\\').pop();
+                    }
+                    else if (selectedItems > 1) {
+                        this.nextElementSibling.textContent = selectedItems + " files selected";
+                    }
+                }
+            }, false)
+        </script>
+    }
+</form>

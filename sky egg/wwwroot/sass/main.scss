@@ -1,0 +1,100 @@
+﻿body{
+    margin:0;
+    padding: 0;
+}
+*{
+    box-sizing: border-box;
+}
+$mainColor: #000;
+$mainTransition: all .5s ease-in-out;
+body {
+
+    header {
+
+        nav {
+            .navbar-brand {
+                text-transform: capitalize;
+                font-family: cursive, 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+
+            div {
+                justify-content: space-evenly;
+
+                ul {
+                    li {
+                        color: $mainColor;
+
+                        a {
+                            color: inherit;
+                            text-decoration: none;
+                            text-transform: capitalize;
+                            transition: $mainTransition;
+                            position: relative;
+                        }
+
+                        a:hover {
+                            color: inherit;
+                            opacity: .6;
+                            text-decoration: none;
+                        }
+
+                        a::after {
+                            content: "";
+                            height: 2px;
+                            width: 100%;
+                            background-color: $mainColor;
+                            position: absolute;
+                            bottom: -10px;
+                            left: 50%;
+                            transform: translateX(-50%) scale(0);
+                            transform-origin: center;
+                            transition: $mainTransition;
+                        }
+
+                        a:hover::after {
+                            color: inherit;
+                            opacity: .6;
+                            transform: translateX(-50%) scale(1);
+                        }
+                    }
+
+                    li:not(:last-of-type) {
+                        margin-right: 10px
+                    }
+
+                    li.active {
+                        a{
+                            color: inherit;
+                            opacity: .6;
+                            text-decoration: none;
+                        }
+
+                        a::after {
+                            color: inherit;
+                            opacity: .6;
+                            transform: translateX(-50%) scale(1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    form.subscribe {
+        background-color: #54565A;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 0;
+        color: white;
+
+        .btn {
+            margin-top: 30px;
+        }
+    }
+    footer{
+        .row{
+            max-width: 100%;
+        }
+    }
+}

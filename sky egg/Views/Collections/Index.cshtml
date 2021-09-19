@@ -1,0 +1,36 @@
+﻿@model List<SkyEggJoinModel>
+@section productsStyle{
+    <link rel="stylesheet" href="~/css/Products.css" />
+}
+<div class="products-container">
+    @foreach (var product in Model)
+    {
+        //var path = "~/images/" + (product.PhotoPath ?? "Humidifiers .jpg");
+       
+    <div class="card product-box" style="width: 18rem;">
+        @if (product.photos.Any())
+        {
+            <img src="~/images/@product.photos.FirstOrDefault().PhotoPath" asp-append-version="true" class="card-img-top" alt="product image">
+        }
+        else
+        {
+            <img src="~/images/Humidifiers .jpg" asp-append-version="true" class="card-img-top" alt="product image">
+        }
+        <div class="card-body">
+            <h5 class="card-title">@product.skyEggProduct.ProductName</h5>
+            <p class="card-text">@product.skyEggProduct.Prise€</p>
+            <div class="links">
+                <a asp-controller="collections" asp-action="Read" asp-route-id="@product.skyEggProduct.Id" class="btn btn-primary">View</a>
+                <a asp-controller="collections" asp-action="Delete" asp-route-id="@product.skyEggProduct.Id" asp-route-_categorie="@product.skyEggProduct.Categrie" class="btn bg-danger">Delete</a>
+                <a asp-controller="Collections" asp-action="Update" asp-route-id="@product.skyEggProduct.Id" class="btn bg-info text-dark">Updates</a>
+            </div>
+        </div>
+    </div>
+        }
+    </div>
+@if(!Model.Any())
+{
+    <div>
+        out of stock
+    </div>
+}

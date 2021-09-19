@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - sky_egg</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+    <link rel="stylesheet" href="~/lib/font awesome/all.css"/>
+    @if (IsSectionDefined("productsStyle"))
+    {
+        // b section kat9der t7adad resource l view mo7adada css js ...
+        @RenderSection("productsStyle", required: true);
+    }
+</head>
+<body>
+    <header class="bg-light">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">sky egg</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        @if (@ViewData["Title"] == "Sound Machines")
+                        {
+                            <li class="nav-item active">
+                                <a asp-controller="Collections" asp-action="SoundMachines" asp-route-categorie="@Categories.Sound_Machines">Sound Machines</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Collections" asp-action="SoundMachines" asp-route-categorie="@Categories.Sound_Machines">Sound Machines</a>
+                            </li>
+                        }
+                        @if (@ViewData["Title"] == "Air Purifiers")
+                        {
+                            <li class="nav-item active">
+                                <a asp-controller="Collections" asp-action="AirPurifiers" asp-route-categorie="@Categories.Air_Purifiers">Air Purifiers</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Collections" asp-action="AirPurifiers" asp-route-categorie="@Categories.Air_Purifiers">Air Purifiers</a>
+                            </li>
+                        }
+                        @if (@ViewData["Title"] == "Humidifiers")
+                        {
+
+                            <li class="nav-item active">
+                                <a asp-controller="Collections" asp-action="Humidifiers" asp-route-categorie="@Categories.Humidifiers">Humidifiers</a>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li class="nav-item">
+                                <a asp-controller="Collections" asp-action="Humidifiers" asp-route-categorie="@Categories.Humidifiers">Humidifiers</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a asp-controller="Collections" asp-action="AddProduct">Add </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <form class="subscribe" asp-controller="Home" asp-action="SendMail" method="post">
+        <h2>Subscribe</h2>
+        <p>Sign up to get the latest news, deals, and more …</p>
+        <input type="Email" placeholder="Enter Your Email Adress" />
+        <input class="btn btn-primary" type="submit" value="Sign Up" />
+    </form>
+    <!--footer -->
+    <partial name="~/Views/Global/Footer.cshtml">
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/main.js"></script>
+    @if (IsSectionDefined("Scripts"))
+    {
+        // b section kat9der t7adad resource l view mo7adada css js ...
+        @RenderSection("Scripts", required: true);
+    }
+</body>
+</html>
