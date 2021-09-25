@@ -1,4 +1,4 @@
-﻿@model SkyEggCreateViewModel;
+﻿@model SkyEggUpdateViewModel;
 @{
     ViewBag.Title = "Add New Product";
 }
@@ -8,6 +8,8 @@
 }*@
 
 <form enctype="multipart/form-data" asp-controller="collections" asp-action="Update" method="post">
+    <input hidden asp-for="Id" />
+    <input hidden asp-for="ExistingPhotos" />
     <div class="form-group">
         <label asp-for="ProductName">Product Name</label>
         <input asp-for="ProductName" value="@Model.ProductName" class="form-control" />
@@ -44,6 +46,23 @@
             </div>
         </div>
     </div>
+    @* existing photo *@
+<div>
+    @{
+        if (Model.ExistingPhotos == null)
+        {
+            <img src="~/images/employee.jpg" asp-append-version="true" style="height:200px;width: auto;" />
+        }
+        else
+        {
+            foreach (Photo photo in Model.ExistingPhotos)
+            {
+                <img src="~/images/@photo.PhotoPath" asp-append-version="true" style="height:200px;width: auto;" />
+            }
+        }
+    }
+</div>
+
     @* ay error tra ghaydar lih display hna *@
     @*<div asp-validation-summary="All" class="text-danger"></div>*@
     <input type="submit" class="btn btn-primary" value="Update" />

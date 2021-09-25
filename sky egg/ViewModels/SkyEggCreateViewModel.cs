@@ -23,6 +23,5 @@ namespace sky_egg.ViewModels
         [Required]
         public Categories Categrie { get; set; }
         public List<IFormFile> Photos { get; set; }
-        public IEnumerable<Photo> IEnumPhotos { get; set; }
     }
 }
