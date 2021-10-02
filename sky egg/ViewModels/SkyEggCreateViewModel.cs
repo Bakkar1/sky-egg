@@ -18,6 +18,7 @@ namespace sky_egg.ViewModels
         public float Prise { get; set; }
         [Required]
         public string Features { get; set; }
+        //public List<Feature> Features { get; set; }
         [Required]
         public string Colors { get; set; }
         [Required]

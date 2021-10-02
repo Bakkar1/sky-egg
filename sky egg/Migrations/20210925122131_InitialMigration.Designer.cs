@@ -10,8 +10,8 @@ using sky_egg.Models;
 namespace sky_egg.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210919123252_initialJoinData")]
-    partial class initialJoinData
+    [Migration("20210925122131_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,26 @@ namespace sky_egg.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("sky_egg.Models.Feature", b =>
+                {
+                    b.Property<int>("FeatureId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ProductFature")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SkyEggProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FeatureId");
+
+                    b.HasIndex("SkyEggProductId");
+
+                    b.ToTable("Features");
+                });
 
             modelBuilder.Entity("sky_egg.Models.Photo", b =>
                 {
@@ -104,9 +124,6 @@ namespace sky_egg.Migrations
                     b.Property<string>("Colors")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Features")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<float>("Prise")
                         .HasColumnType("real");
 
@@ -123,26 +140,34 @@ namespace sky_egg.Migrations
                             Id = 1,
                             Categrie = "Sound_Machines",
                             Colors = "Grey",
-                            Features = "Timer & Volume Control",
                             Prise = 30.99f,
                             ProductName = "Dreamegg D3 Sound Machine"
                         },
                         new
                         {
                             Id = 2,
-                            Categrie = "Humidifiers",
-                            Features = "Much Powerful Performance - CADR 189m³/h + True HEPA Filter;Effective Air Filtration - Refresh the Air in a Small or Mid-Size Room(250 Sq Ft (23 m²) )in 20 Min",
+                            Categrie = "Air_Purifiers",
                             Prise = 119.99f,
                             ProductName = "HEPA Air Purifier 4-in-1 for Home"
                         },
                         new
                         {
                             Id = 3,
-                            Categrie = "Air_Purifiers",
-                            Features = "EFFECTIVELY COMBAT DRYNESS;HOUGHTFUL TIMER FUNCTION",
+                            Categrie = "Humidifiers",
                             Prise = 39.99f,
                             ProductName = "Dreamegg 2L Cool Mist Humidifier - Grey"
                         });
+                });
+
+            modelBuilder.Entity("sky_egg.Models.Feature", b =>
+                {
+                    b.HasOne("sky_egg.Models.SkyEggProduct", "SkyEggProduct")
+                        .WithMany("Features")
+                        .HasForeignKey("SkyEggProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SkyEggProduct");
                 });
 
             modelBuilder.Entity("sky_egg.Models.Photo", b =>
@@ -156,6 +181,8 @@ namespace sky_egg.Migrations
 
             modelBuilder.Entity("sky_egg.Models.SkyEggProduct", b =>
                 {
+                    b.Navigation("Features");
+
                     b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618

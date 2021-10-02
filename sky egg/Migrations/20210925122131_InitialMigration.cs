@@ -2,7 +2,7 @@
 
 namespace sky_egg.Migrations
 {
-    public partial class initialJoinData : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,13 +14,32 @@ namespace sky_egg.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Prise = table.Column<float>(type: "real", nullable: false),
-                    Features = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Colors = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Categrie = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SkyEggProducts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Features",
+                columns: table => new
+                {
+                    FeatureId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductFature = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SkyEggProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Features", x => x.FeatureId);
+                    table.ForeignKey(
+                        name: "FK_Features_SkyEggProducts_SkyEggProductId",
+                        column: x => x.SkyEggProductId,
+                        principalTable: "SkyEggProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,18 +64,18 @@ namespace sky_egg.Migrations
 
             migrationBuilder.InsertData(
                 table: "SkyEggProducts",
-                columns: new[] { "Id", "Categrie", "Colors", "Features", "Prise", "ProductName" },
-                values: new object[] { 1, "Sound_Machines", "Grey", "Timer & Volume Control", 30.99f, "Dreamegg D3 Sound Machine" });
+                columns: new[] { "Id", "Categrie", "Colors", "Prise", "ProductName" },
+                values: new object[] { 1, "Sound_Machines", "Grey", 30.99f, "Dreamegg D3 Sound Machine" });
 
             migrationBuilder.InsertData(
                 table: "SkyEggProducts",
-                columns: new[] { "Id", "Categrie", "Colors", "Features", "Prise", "ProductName" },
-                values: new object[] { 2, "Humidifiers", null, "Much Powerful Performance - CADR 189m³/h + True HEPA Filter;Effective Air Filtration - Refresh the Air in a Small or Mid-Size Room(250 Sq Ft (23 m²) )in 20 Min", 119.99f, "HEPA Air Purifier 4-in-1 for Home" });
+                columns: new[] { "Id", "Categrie", "Colors", "Prise", "ProductName" },
+                values: new object[] { 2, "Air_Purifiers", null, 119.99f, "HEPA Air Purifier 4-in-1 for Home" });
 
             migrationBuilder.InsertData(
                 table: "SkyEggProducts",
-                columns: new[] { "Id", "Categrie", "Colors", "Features", "Prise", "ProductName" },
-                values: new object[] { 3, "Air_Purifiers", null, "EFFECTIVELY COMBAT DRYNESS;HOUGHTFUL TIMER FUNCTION", 39.99f, "Dreamegg 2L Cool Mist Humidifier - Grey" });
+                columns: new[] { "Id", "Categrie", "Colors", "Prise", "ProductName" },
+                values: new object[] { 3, "Humidifiers", null, 39.99f, "Dreamegg 2L Cool Mist Humidifier - Grey" });
 
             migrationBuilder.InsertData(
                 table: "Photos",
@@ -74,6 +93,11 @@ namespace sky_egg.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Features_SkyEggProductId",
+                table: "Features",
+                column: "SkyEggProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Photos_SkyEggProductId",
                 table: "Photos",
                 column: "SkyEggProductId");
@@ -81,6 +105,9 @@ namespace sky_egg.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Features");
+
             migrationBuilder.DropTable(
                 name: "Photos");
 

@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="~/css/Products.css" />
 }
 <div class="card product-box">
-    @if (Model.photos.Any())
+    @if (Model.Photos.Any())
     {
         <div id="carouselExampleIndicators" class="carousel slide card-img-top" data-ride="carousel">
             <ol class="carousel-indicators">
                 @{
                     var j = 0;
-                    foreach (var photo in Model.photos)
+                    foreach (var photo in Model.Photos)
                     {
                         if (j == 0)
                         {
@@ -29,7 +29,7 @@
             <div class="carousel-inner">
                 @{
                     var i = 0;
-                    foreach (var photo in Model.photos)
+                    foreach (var photo in Model.Photos)
                     {
                         if (i == 0)
                         {
@@ -62,12 +62,18 @@
         <img src="~/images/Humidifiers .jpg" asp-append-version="true" class="card-img-top" alt="product image">
     }
     <div class="card-body">
-        <h5 class="card-title">@Model.skyEggProduct.ProductName</h5>
-        <p class="card-text">@Model.skyEggProduct.Prise€</p>
+        <h5 class="card-title">@Model.SkyEggProduct.ProductName</h5>
+        <p class="card-text">@Model.SkyEggProduct.Prise€</p>
+        <ul class="list-group list-group-flush">
+            @foreach (var feature in Model.Features)
+            {
+                <li class="list-group-item">@feature.ProductFature</li>
+            }
+        </ul>
         <div class="links">
             <button class="btn btn-primary goBackBtn">Back</button>
-            <a asp-controller="collections" asp-action="Delete" asp-route-id="@Model.skyEggProduct.Id" asp-route-_categorie="@Model.skyEggProduct.Categrie" class="btn bg-danger">Delete</a>
-            <a asp-controller="Collections" asp-action="Update" asp-route-id="@Model.skyEggProduct.Id" class="btn bg-info text-dark">Update</a>
+            <a asp-controller="collections" asp-action="Delete" asp-route-id="@Model.SkyEggProduct.Id" asp-route-_categorie="@Model.SkyEggProduct.Categrie" class="btn bg-danger">Delete</a>
+            <a asp-controller="Collections" asp-action="Update" asp-route-id="@Model.SkyEggProduct.Id" class="btn bg-info text-dark">Update</a>
         </div>
     </div>
 </div>

@@ -10,13 +10,25 @@ namespace sky_egg.Models
     {
         IEnumerable<SkyEggProduct> GetAllProduct();
         IEnumerable<SkyEggProduct> GetAllProductByCategorie(Categories categorie);
+        #region Add
         SkyEggProduct Add(SkyEggProduct product);
-        SkyEggProduct Update(SkyEggProduct product);
-        SkyEggProduct Read(int Id);
-        SkyEggProduct Delete(int Id);
         Photo Add(Photo photo);
-        IEnumerable<Photo> GetPhotos(int productId);
+        Feature Add(Feature feature);
+        #endregion
+        #region Update
+        SkyEggProduct Update(SkyEggProduct product);
         Photo Update(Photo product);
+        Feature Update(Feature feature);
+        #endregion
+        #region Read
+        SkyEggProduct Read(int Id);
+        IEnumerable<Photo> GetPhotos(int productId);
+        IEnumerable<Feature> GetFeatures(int productId);
+        Feature GetFeature(int productId);
+        #endregion
+        #region Delete
+        SkyEggProduct Delete(int Id);
         List<string> DeletePhotos(int productId);
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace sky_egg.Models
         {
             this.appDbContext = appDbContext;
         }
+        #region Add
         public SkyEggProduct Add(SkyEggProduct product)
         {
             appDbContext.SkyEggProducts.Add(product);
@@ -27,6 +29,14 @@ namespace sky_egg.Models
             return photo;
         }
 
+        public Feature Add(Feature feature)
+        {
+            appDbContext.Features.Add(feature);
+            appDbContext.SaveChanges();
+            return feature;
+        }
+        #endregion
+        #region Delete
         public SkyEggProduct Delete(int Id)
         {
             SkyEggProduct product =  appDbContext.SkyEggProducts.Find(Id);
@@ -53,6 +63,8 @@ namespace sky_egg.Models
             appDbContext.SaveChanges();
             return photoPaths;
         }
+        #endregion
+        #region Read
 
         public IEnumerable<SkyEggProduct> GetAllProduct()
         {
@@ -64,6 +76,16 @@ namespace sky_egg.Models
             return appDbContext.SkyEggProducts.Where(pro => pro.Categrie == categorie.ToString());
         }
 
+        public Feature GetFeature(int productId)
+        {
+            return appDbContext.Features.Where(fe => fe.SkyEggProductId == productId).FirstOrDefault();
+        }
+
+        public IEnumerable<Feature> GetFeatures(int productId)
+        {
+            return appDbContext.Features.Where(fe => fe.SkyEggProductId == productId);
+        }
+
         public IEnumerable<Photo> GetPhotos(int productId)
         {
             return appDbContext.Photos.Where(photo => photo.SkyEggProductId == productId);
@@ -73,7 +95,8 @@ namespace sky_egg.Models
         {
             return appDbContext.SkyEggProducts.Find(Id);
         }
-
+        #endregion
+        #region Update
         public SkyEggProduct Update(SkyEggProduct product)
         {
             var pro = appDbContext.SkyEggProducts.Attach(product);
@@ -90,5 +113,14 @@ namespace sky_egg.Models
             appDbContext.SaveChanges();
             return photo;
         }
+
+        public Feature Update(Feature newFeature)
+        {
+            var feature = appDbContext.Features.Attach(newFeature);
+            feature.State = EntityState.Modified;
+            appDbContext.SaveChanges();
+            return newFeature;
+        }
+        #endregion
     }
 }

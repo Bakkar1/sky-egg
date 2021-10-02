@@ -8,7 +8,8 @@ namespace sky_egg.ViewModels
 {
     public class SkyEggJoinModel
     {
-        public SkyEggProduct skyEggProduct { get; set; }
-        public IEnumerable<Photo> photos { get; set; }
+        public SkyEggProduct SkyEggProduct { get; set; }
+        public IEnumerable<Photo> Photos { get; set; }
+        public IEnumerable<Feature> Features { get; set; }
     }
 }

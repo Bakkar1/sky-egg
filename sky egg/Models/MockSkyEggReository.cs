@@ -9,10 +9,12 @@ namespace sky_egg.Models
     {
         private List<SkyEggProduct> productsList;
         private List<Photo> photosList;
+        private List<Feature> featuresList;
         public MockSkyEggReository()
         {
             InitialProducts();
         }
+        #region Add
         public SkyEggProduct Add(SkyEggProduct product)
         {
             int newId = productsList.Max(pro => pro.Id) + 1;
@@ -31,6 +33,15 @@ namespace sky_egg.Models
             return photo;
         }
 
+        public Feature Add(Feature feature)
+        {
+            int newId = featuresList.Max(fe => fe.FeatureId) + 1;
+            feature.FeatureId = newId;
+            featuresList.Add(feature);
+            return feature;
+        }
+        #endregion
+        #region Delete
         public SkyEggProduct Delete(int Id)
         {
             SkyEggProduct product = productsList.FirstOrDefault(pro => pro.Id == Id);
@@ -52,7 +63,8 @@ namespace sky_egg.Models
             }
             return photoPaths;
         }
-
+        #endregion
+        #region Read
         public IEnumerable<SkyEggProduct> GetAllProduct()
         {
             return productsList;
@@ -67,6 +79,16 @@ namespace sky_egg.Models
             return productsList.Where(pro => pro.Categrie == categorie.ToString());
         }
 
+        public Feature GetFeature(int productId)
+        {
+            return featuresList.Where(fe => fe.SkyEggProductId == productId).FirstOrDefault();
+        }
+
+        public IEnumerable<Feature> GetFeatures(int productId)
+        {
+            return featuresList.Where(feature => feature.SkyEggProductId == productId);
+        }
+
         public IEnumerable<Photo> GetPhotos(int productId)
         {
             return photosList.Where(photo => photo.SkyEggProductId == productId);
@@ -76,7 +98,8 @@ namespace sky_egg.Models
         {
             return productsList.FirstOrDefault(pro => pro.Id == Id);
         }
-
+        #endregion
+        #region Update
         public SkyEggProduct Update(SkyEggProduct product)
         {
             SkyEggProduct pro = productsList.FirstOrDefault(prod => prod.Id == product.Id);
@@ -98,6 +121,13 @@ namespace sky_egg.Models
             return photo;
         }
 
+        public Feature Update(Feature newFeature)
+        {
+            var feature = featuresList.FirstOrDefault(fe => fe.SkyEggProductId == newFeature.SkyEggProductId);
+            feature.ProductFature = newFeature.ProductFature;
+            return feature;
+        }
+        #endregion
         private void InitialProducts()
         {
             productsList = new List<SkyEggProduct>()
@@ -106,7 +136,7 @@ namespace sky_egg.Models
                     Id= 1,
                     ProductName = "Dreamegg D3 Sound Machine" ,
                     Prise = 30.99f,
-                    Features = "Timer & Volume Control",
+                    //Features = "Timer & Volume Control",
                     Colors = "Grey" ,
                     Categrie = Categories.Sound_Machines.ToString()
                     //PhotoPath = "392bbac0-796d-4c73-b0a4-5e1eb34d6b04Sound_Machines .jpg"
@@ -115,7 +145,7 @@ namespace sky_egg.Models
                     Id= 2,
                     ProductName = "HEPA Air Purifier 4-in-1 for Home" ,
                     Prise = 119.99f,
-                    Features = "Much Powerful Performance - CADR 189m³/h + True HEPA Filter;Effective Air Filtration - Refresh the Air in a Small or Mid-Size Room(250 Sq Ft (23 m²) )in 20 Min",
+                    //Features = "Much Powerful Performance - CADR 189m³/h + True HEPA Filter;Effective Air Filtration - Refresh the Air in a Small or Mid-Size Room(250 Sq Ft (23 m²) )in 20 Min",
                     Colors = null ,
                     Categrie = Categories.Air_Purifiers.ToString()
                     //PhotoPath = "56e1d082-b379-4f50-a882-56225abdddd3HEPA.jpg"
@@ -124,7 +154,7 @@ namespace sky_egg.Models
                     Id= 3,
                     ProductName = "Dreamegg 2L Cool Mist Humidifier - Grey" ,
                     Prise = 39.99f,
-                    Features = "EFFECTIVELY COMBAT DRYNESS;HOUGHTFUL TIMER FUNCTION",
+                    //Features = "EFFECTIVELY COMBAT DRYNESS;HOUGHTFUL TIMER FUNCTION",
                     Colors = null ,
                     Categrie = Categories.Humidifiers.ToString()
                     //PhotoPath = "c13cdd4d-b4eb-4178-853c-3f6483d7208eDreamegg 2L.jpg"
@@ -181,6 +211,27 @@ namespace sky_egg.Models
                      PhotoPath = "c13cdd4d-b4eb-4178-853c-3f6483d7208eDreamegg 2L.jpg",
                      SkyEggProductId = 3
                  }
+            };
+            featuresList = new List<Feature>()
+            {
+                new Feature()
+                {
+                    FeatureId = 1,
+                    ProductFature = "Timer & Volume Control",
+                    SkyEggProductId = 1
+                },
+                new Feature()
+                {
+                    FeatureId = 2,
+                    ProductFature = "Much Powerful Performance - CADR 189m³/h",
+                    SkyEggProductId = 2
+                },
+                new Feature()
+                {
+                    FeatureId = 3,
+                    ProductFature = "Effective Air Filtration - Refresh the Air in a Small or Mid-Size Room(250 Sq Ft (23 m²) )in 20 Min",
+                    SkyEggProductId = 2
+                }
             };
         }
     }

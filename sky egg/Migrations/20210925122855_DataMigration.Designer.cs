@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sky_egg.Models;
 
 namespace sky_egg.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210925122855_DataMigration")]
+    partial class DataMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,12 +58,6 @@ namespace sky_egg.Migrations
                             FeatureId = 3,
                             ProductFature = "Effective Air Filtration - Refresh the Air in a Small or Mid-Size Room(250 Sq Ft (23 m²) )in 20 Min",
                             SkyEggProductId = 2
-                        },
-                        new
-                        {
-                            FeatureId = 4,
-                            ProductFature = "EFFECTIVELY COMBAT DRYNESS;HOUGHTFUL TIMER FUNCTION",
-                            SkyEggProductId = 3
                         });
                 });
 

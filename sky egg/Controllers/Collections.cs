@@ -52,8 +52,8 @@ namespace sky_egg.Controllers
             {
                 model = new SkyEggJoinModel()
                 {
-                    skyEggProduct = pro,
-                    photos = _ISkyEgg.GetPhotos(pro.Id)
+                    SkyEggProduct = pro,
+                    Photos = _ISkyEgg.GetPhotos(pro.Id)
                 };
                 skyEggJoinModels.Add(model);
             }
@@ -92,11 +92,19 @@ namespace sky_egg.Controllers
                 {
                     ProductName = model.ProductName,
                     Prise = model.Prise,
-                    Features = model.Features,
+                    //Features = model.Features,
                     Colors = model.Colors,
                     Categrie = model.Categrie.ToString(),
                 };
                 _ISkyEgg.Add(skyEggProduct);
+
+                //add Feauters
+                Feature feature = new Feature() 
+                    {
+                        ProductFature = model.Features,
+                        SkyEggProductId = skyEggProduct.Id
+                    };
+                _ISkyEgg.Add(feature);
 
                 ProcessUploadedFile(model, skyEggProduct);
 
@@ -136,10 +144,16 @@ namespace sky_egg.Controllers
         {
             SkyEggJoinModel model = new SkyEggJoinModel()
             {
-                skyEggProduct = _ISkyEgg.Read(Id),
-                photos = _ISkyEgg.GetPhotos(Id)
+                SkyEggProduct = _ISkyEgg.Read(Id),
+                Photos = _ISkyEgg.GetPhotos(Id),
+                Features = _ISkyEgg.GetFeatures(Id)
 
             };
+            if(model.SkyEggProduct == null)
+            {
+                
+                return View("ProductNotFound", Id);
+            }
 
             return View(model);
 
@@ -157,7 +171,7 @@ namespace sky_egg.Controllers
                 Id = pro.Id,
                 ProductName = pro.ProductName,
                 Prise = pro.Prise,
-                Features = pro.Features,
+                Features = _ISkyEgg.GetFeatures(Id).FirstOrDefault().ProductFature,
                 Colors = pro.Colors,
                 Categrie = (Categories)Enum.Parse(typeof(Categories), pro.Categrie),
                 ExistingPhotos = (_ISkyEgg.GetPhotos(Id)).ToList()
@@ -174,11 +188,17 @@ namespace sky_egg.Controllers
                     Id = model.Id,
                     ProductName = model.ProductName,
                     Prise = model.Prise,
-                    Features = model.Features,
+                    //Features = model.Features,
                     Colors = model.Colors,
                     Categrie = model.Categrie.ToString(),
                 };
                 _ISkyEgg.Update(skyEggProduct);
+
+                //update Feauters
+                Feature feature = _ISkyEgg.GetFeature(skyEggProduct.Id);
+                feature.ProductFature = model.Features;
+                _ISkyEgg.Update(feature);
+
 
                 if (model.Photos != null)
                 {
@@ -209,7 +229,7 @@ namespace sky_egg.Controllers
                 ProcessUploadedFile(model, skyEggProduct);
                 return RedirectToAction("Read", new { Id = skyEggProduct.Id });
             }
-            return View();
+            return View(model);
         }
         public RedirectToActionResult Delete(int Id, Categories _categorie)
         {

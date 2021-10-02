@@ -172,3 +172,6 @@ C:\Users\mbark\OneDrive\Documents\GitHub\sky-egg\sky egg\obj\Debug\netcoreapp3.1
 C:\Users\mbark\OneDrive\Documents\GitHub\sky-egg\sky egg\obj\Debug\netcoreapp3.1\sky egg.dll
 C:\Users\mbark\OneDrive\Documents\GitHub\sky-egg\sky egg\obj\Debug\netcoreapp3.1\sky egg.pdb
 C:\Users\mbark\OneDrive\Documents\GitHub\sky-egg\sky egg\obj\Debug\netcoreapp3.1\sky egg.genruntimeconfig.cache
+C:\Users\mbark\OneDrive\Documents\GitHub\sky-egg\sky egg\obj\Debug\netcoreapp3.1\Razor\Views\Collections\ProductNotFound.cshtml.g.cs
+C:\Users\mbark\OneDrive\Documents\GitHub\sky-egg\sky egg\obj\Debug\netcoreapp3.1\Razor\Views\Error\NotFound.cshtml.g.cs
+C:\Users\mbark\OneDrive\Documents\GitHub\sky-egg\sky egg\obj\Debug\netcoreapp3.1\Razor\Views\Error\_Layout.cshtml.g.cs
